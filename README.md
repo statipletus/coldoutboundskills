@@ -99,7 +99,7 @@ Alternative: `/cold-email-starter-kit` — the longer manual 14-step tutorial. U
 | Prospeo | `PROSPEO_API_KEY` | List building (title-first) | prospeo-*, auto-research |
 | Dynadot | `DYNADOT_API_KEY` | Buy domains | zapmail-setup |
 | Zapmail | `ZAPMAIL_API_KEY` | Create inboxes | zapmail-setup |
-| MillionVerifier | `MILLIONVERIFIER_API_KEY` | Validate emails before sending | waterfall, auto-research |
+| Icypeas | `ICYPEAS_API_KEY` | Validate emails before sending | waterfall, auto-research |
 | Blitz | `BLITZ_API_KEY` | Domain-to-contacts lookup | blitz-list-builder |
 | RapidAPI | `RAPIDAPI_KEY` | Google Maps scraping, LinkedIn data | google-maps-*, competitor-engagers |
 | Instantly | `INSTANTLY_API_KEY` | Alternative sending platform | starter-kit (09) |
@@ -153,7 +153,7 @@ First campaign (2,000 leads, 20 domains, 40 inboxes):
 - Zapmail: ~$60/mo for 40 inboxes
 - Prospeo: ~$20 for 2,000-lead export
 - Smartlead: ~$39/mo starter plan
-- MillionVerifier: ~$5 for 2,000 validations
+- Icypeas: ~$5 for 2,000 validations
 - **Month 1 total: ~$360. Recurring: ~$130/mo.**
 
 See `skills/cold-email-starter-kit/references/00-getting-started.md` for full breakdown.

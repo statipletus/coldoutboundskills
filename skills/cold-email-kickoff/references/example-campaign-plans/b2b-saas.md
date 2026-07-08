@@ -28,7 +28,7 @@ Full strategy in: `profiles/acme-analytics/campaign-strategy.md`
 ## Infrastructure Readiness
 - [x] SMARTLEAD_API_KEY in .env
 - [x] PROSPEO_API_KEY in .env
-- [x] MILLIONVERIFIER_API_KEY in .env
+- [x] ICYPEAS_API_KEY in .env
 - [x] Domains purchased (20 `.com` lookalikes)
 - [x] Inboxes warmed 2+ weeks (40 inboxes tagged `active`)
 

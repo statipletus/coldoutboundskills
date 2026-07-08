@@ -73,7 +73,7 @@ If you already have inboxes set up and just want a campaign to run automatically
 Prerequisites for the fast path:
 - Ran `/icp-onboarding` once (produces `client-profile.yaml`)
 - Ran `/zapmail-domain-setup-public` + `/smartlead-inbox-manager` to have active inboxes
-- Have `SMARTLEAD_API_KEY`, `PROSPEO_API_KEY`, `MILLIONVERIFIER_API_KEY` in `.env`
+- Have `SMARTLEAD_API_KEY`, `PROSPEO_API_KEY`, `ICYPEAS_API_KEY` in `.env`
 
 The walkthrough below is for **manual** first-timer learning. If you've done a campaign once before, jump straight to `/auto-research-public`.
 

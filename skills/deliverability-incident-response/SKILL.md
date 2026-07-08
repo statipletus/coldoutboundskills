@@ -77,7 +77,7 @@ Smartlead categorizes bounces as hard (invalid address) or soft (temporary).
 
 ```
 bounce_rate > 3% AND mostly_hard_bounces
-  → list quality problem, verify with MillionVerifier
+  → list quality problem, verify with Icypeas
 
 bounce_rate > 3% AND mostly_soft_bounces (greylist, temp)
   → domain reputation problem, slow sending
@@ -89,7 +89,7 @@ bounce_rate > 5% either type
 ### Step 2: If list problem
 
 1. Export remaining leads from the campaign
-2. Run through MillionVerifier (batch, ~$2 per 1,000)
+2. Run through Icypeas (batch, ~$2 per 1,000)
 3. Only reuse emails with status "ok"
 4. Discard the rest
 

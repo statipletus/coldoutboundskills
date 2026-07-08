@@ -168,7 +168,7 @@ Feed the action items into the right skills:
 - **<1%** — Excellent. Healthy list.
 - **1-2%** — Normal for cold. No action.
 - **2-3%** — Yellow. Check list quality, might be old emails.
-- **>3%** — Red. Verify the list (MillionVerifier), consider pausing.
+- **>3%** — Red. Verify the list (Icypeas), consider pausing.
 - **>5%** — Stop immediately. You're damaging domain reputation.
 
 ### Spam placement

@@ -1,14 +1,14 @@
 #!/usr/bin/env tsx
 /**
- * Phase 4: Email waterfall + description enrichment + MV validation.
+ * Phase 4: Email waterfall + description enrichment + Icypeas validation.
  *
  * - For leads missing email: hit Prospeo enrich-person
  * - For leads with thin company_description: scrape their company domain
- * - Validate all candidate emails with MillionVerifier (only "ok" emails kept)
+ * - Validate all candidate emails with Icypeas (only deliverable emails kept)
  *
  * Usage:
  *   export PROSPEO_API_KEY=xxx
- *   export MILLIONVERIFIER_API_KEY=xxx
+ *   export ICYPEAS_API_KEY=xxx
  *   npx tsx scripts/phase-enrich.ts --leads-file=/tmp/auto/leads.json --out=/tmp/auto/enriched.json
  */
 
@@ -16,14 +16,16 @@ import { readFileSync, writeFileSync, mkdirSync } from "fs";
 import { dirname } from "path";
 
 const PROSPEO_KEY = process.env.PROSPEO_API_KEY;
-const MV_KEY = process.env.MILLIONVERIFIER_API_KEY;
+const ICYPEAS_KEY = process.env.ICYPEAS_API_KEY;
 if (!PROSPEO_KEY) {
   console.error("Missing env: PROSPEO_API_KEY");
   process.exit(1);
 }
-if (!MV_KEY) {
-  console.error("Warning: MILLIONVERIFIER_API_KEY not set — skipping validation");
+if (!ICYPEAS_KEY) {
+  console.error("Warning: ICYPEAS_API_KEY not set — skipping validation");
 }
+
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 function parseArgs() {
   const args = process.argv.slice(2);
@@ -75,16 +77,45 @@ async function scrapeDescription(domain: string): Promise<string> {
   }
 }
 
+// Icypeas email verification is asynchronous: POST launches a job and returns an
+// item _id; you then poll the read endpoint until the top-level status resolves.
+//   FOUND      → deliverable  (kept)
+//   NOT_FOUND  → undeliverable (dropped)
+//   NONE / SCHEDULED / IN_PROGRESS → still processing (keep polling)
+// Real SMTP checks can take ~60s, so we poll up to ~90s before giving up ("skip").
 async function verifyEmail(email: string): Promise<"ok" | "invalid" | "skip"> {
-  if (!MV_KEY) return "skip";
+  if (!ICYPEAS_KEY) return "skip";
+  const headers = { "Content-Type": "application/json", Authorization: ICYPEAS_KEY };
   try {
-    const resp = await fetch(
-      `https://api.millionverifier.com/api/v3/?api=${MV_KEY}&email=${encodeURIComponent(email)}&timeout=10`
-    );
-    if (!resp.ok) return "skip";
-    const data = await resp.json();
-    const result = data.resultcode ?? data.result;
-    return result === 1 || result === "ok" ? "ok" : "invalid";
+    // 1. Launch verification
+    const launch = await fetch("https://app.icypeas.com/api/email-verification", {
+      method: "POST",
+      headers,
+      body: JSON.stringify({ email }),
+    });
+    if (!launch.ok) return "skip";
+    const launchData: any = await launch.json();
+    const id = launchData?.item?._id;
+    if (!id) return "skip";
+
+    // 2. Poll for the terminal status
+    const deadline = Date.now() + 90_000;
+    while (Date.now() < deadline) {
+      await sleep(3000);
+      const read = await fetch("https://app.icypeas.com/api/bulk-single-searchs/read", {
+        method: "POST",
+        headers,
+        body: JSON.stringify({ id }),
+      });
+      if (!read.ok) continue;
+      const readData: any = await read.json();
+      const status = readData?.items?.[0]?.status;
+      if (status === "FOUND") return "ok";
+      if (status === "NOT_FOUND") return "invalid";
+      if (status && !["NONE", "SCHEDULED", "IN_PROGRESS"].includes(status)) return "skip";
+      // else still pending — keep polling
+    }
+    return "skip"; // timed out — don't drop the email on our own uncertainty
   } catch {
     return "skip";
   }
@@ -150,23 +181,23 @@ async function main() {
   });
   console.error(`[Enrich] Description scrapes: ${descHits} / ${needDesc.length}`);
 
-  // 3. Validate emails via MillionVerifier
+  // 3. Validate emails via Icypeas
   const withEmail = leads.filter((l) => l.email && l.email.includes("@"));
-  let mvOk = 0,
-    mvInvalid = 0,
-    mvSkip = 0;
-  if (MV_KEY) {
-    console.error(`[Enrich] Validating ${withEmail.length} emails with MillionVerifier...`);
-    const mvResults = await pool(withEmail, enrichConcurrency, (l) => verifyEmail(l.email));
+  let verifyOk = 0,
+    verifyInvalid = 0,
+    verifySkip = 0;
+  if (ICYPEAS_KEY) {
+    console.error(`[Enrich] Validating ${withEmail.length} emails with Icypeas...`);
+    const verifyResults = await pool(withEmail, enrichConcurrency, (l) => verifyEmail(l.email));
     withEmail.forEach((l, i) => {
-      const result = mvResults[i];
-      if (result === "ok") mvOk++;
+      const result = verifyResults[i];
+      if (result === "ok") verifyOk++;
       else if (result === "invalid") {
-        mvInvalid++;
+        verifyInvalid++;
         l.email = ""; // clear invalid emails
-      } else mvSkip++;
+      } else verifySkip++;
     });
-    console.error(`[Enrich] MV: ${mvOk} ok, ${mvInvalid} invalid, ${mvSkip} skip`);
+    console.error(`[Enrich] Icypeas: ${verifyOk} ok, ${verifyInvalid} invalid, ${verifySkip} skip`);
   }
 
   const finalWithEmail = leads.filter((l) => l.email && l.email.includes("@"));
@@ -183,8 +214,8 @@ async function main() {
           enrich_hits: enrichHits,
           enrich_misses: enrichMisses,
           description_hits: descHits,
-          mv_ok: mvOk,
-          mv_invalid: mvInvalid,
+          verify_ok: verifyOk,
+          verify_invalid: verifyInvalid,
           final_with_email: finalWithEmail.length,
         },
       },

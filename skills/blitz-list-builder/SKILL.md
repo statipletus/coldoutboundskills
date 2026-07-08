@@ -145,7 +145,7 @@ Once you have the CSV, the typical flow:
 1. **Deduplicate** — remove duplicate emails, duplicate LinkedIn URLs
 2. **Filter** — drop rows where `job_title` doesn't cleanly match your ICP
 3. **Fill missing emails** — run `/email-waterfall` on rows with empty `email`
-4. **Validate** — run MillionVerifier on all emails (see `/email-waterfall` script)
+4. **Validate** — run Icypeas on all emails (see `/email-waterfall` script)
 5. **Upload** — pass to Smartlead via `/cold-email-starter-kit` script `smartlead-add-leads.ts`
 
 ## Scripts

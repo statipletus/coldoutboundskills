@@ -232,7 +232,7 @@ function main() {
 
   // Top issues
   const issues: string[] = [];
-  if (!hasVerificationCol) issues.push("No email verification column — run through MillionVerifier before sending");
+  if (!hasVerificationCol) issues.push("No email verification column — run through Icypeas before sending");
   if (verificationScore < 100 && hasVerificationCol) {
     issues.push(`${total - verifiedCount} emails unverified (${(100 - verificationScore).toFixed(1)}%) — run verification`);
   }
@@ -261,7 +261,7 @@ function main() {
   topIssues.forEach((i, idx) => lines.push(`${idx + 1}. ${i}`));
   lines.push(`\n## Pre-send checklist\n`);
   lines.push(`- [ ] Deduplicate by email`);
-  lines.push(`- [ ] Run MillionVerifier if any emails unverified`);
+  lines.push(`- [ ] Run Icypeas if any emails unverified`);
   lines.push(`- [ ] Drop catch-all addresses if density >5%`);
   lines.push(`- [ ] Filter bad titles (intern, assistant, coordinator, student, retired)`);
   lines.push(`- [ ] Cap per-domain concentration at 2-3 leads`);

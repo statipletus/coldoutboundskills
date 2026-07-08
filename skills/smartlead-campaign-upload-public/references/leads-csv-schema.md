@@ -6,7 +6,7 @@ The upload script accepts a CSV with these columns. Extra columns are rejected t
 
 | Column | Type | Notes |
 |---|---|---|
-| `email` | string | Must be valid email. Script does not re-verify (use `/list-quality-scorecard` or MillionVerifier first). |
+| `email` | string | Must be valid email. Script does not re-verify (use `/list-quality-scorecard` or Icypeas first). |
 | `first_name` | string | Used in `{{first_name}}` merge |
 | `last_name` | string | Used in `{{last_name}}` merge |
 | `company_name` | string | Used in `{{company_name}}` merge. NOTE: `/campaign-copywriting` requires `{{company_name}}`, never `{{company}}`. |
@@ -42,7 +42,7 @@ email,first_name,last_name,company_name,company_domain,title,situation_line,valu
 ## Quality pre-checks before upload
 
 Run `/list-quality-scorecard` first. Confirm:
-- 100% of emails verified (`email_status=ok` or run MillionVerifier)
+- 100% of emails verified (`email_status=ok` or run Icypeas)
 - <1% duplicate rate
 - <5% catch-all addresses
 - ICP fit ≥ 80%

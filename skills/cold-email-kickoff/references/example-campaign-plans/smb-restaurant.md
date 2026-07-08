@@ -28,7 +28,7 @@ Full strategy in: `profiles/delivery-margin-pro/campaign-strategy.md`
 ## Infrastructure Readiness
 - [x] SMARTLEAD_API_KEY in .env
 - [ ] PROSPEO_API_KEY (NOT NEEDED — using Google Maps)
-- [x] MILLIONVERIFIER_API_KEY in .env
+- [x] ICYPEAS_API_KEY in .env
 - [x] RAPIDAPI_KEY in .env (for Google Maps scraping)
 - [x] Domains purchased (15 `.com` lookalikes)
 - [x] Inboxes warmed 2+ weeks (30 inboxes)

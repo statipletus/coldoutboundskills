@@ -8,7 +8,7 @@ Symptom → cause → fix matrix. Start here when something breaks.
 
 | Symptom | Likely cause | Fix |
 |---|---|---|
-| Bounce rate > 5% | Bad list quality | Re-verify the list with MillionVerifier before next send |
+| Bounce rate > 5% | Bad list quality | Re-verify the list with Icypeas before next send |
 | Bounce rate > 10% | Blacklist hit or very bad list | Pause immediately. Check MXToolbox. Throw away the list or domain. |
 | Open rate < 30% | Deliverability / reputation issue | Check SPF/DKIM/DMARC, pause that inbox, warm a replacement |
 | Open rate 30-40% | Subject line is weak | Rewrite subjects, A/B test |
@@ -109,7 +109,7 @@ Possible causes:
 3. **Single-word sender names** — "Jane" looks more human than "Sales"
 4. **Too much HTML** — stick to plain-text formatting
 5. **Old reputation** — burned domains can't be saved, warm a replacement
-6. **List is full of dead addresses** — re-verify with MillionVerifier
+6. **List is full of dead addresses** — re-verify with Icypeas
 
 Use https://www.mail-tester.com to score your email. Target: 9/10 or higher.
 

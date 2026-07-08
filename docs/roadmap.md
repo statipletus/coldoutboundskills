@@ -103,7 +103,7 @@ Once you've done one campaign manually:
 
 **Bounces >3% →**
 - `/email-deliverability-audit` → `run-spam-test.ts` + `check-domain-auth.ts`
-- List probably has dead emails → re-validate with MillionVerifier
+- List probably has dead emails → re-validate with Icypeas
 - Check `/list-quality-scorecard` results retroactively
 
 **Lots of negative replies →**

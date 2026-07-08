@@ -25,7 +25,7 @@ Before running:
 - [ ] `client-profile.yaml` exists (run `/icp-onboarding` if not)
 - [ ] `SMARTLEAD_API_KEY` in env
 - [ ] `PROSPEO_API_KEY` in env
-- [ ] `MILLIONVERIFIER_API_KEY` in env (for email validation)
+- [ ] `ICYPEAS_API_KEY` in env (for email validation)
 - [ ] At least 20 Smartlead inboxes tagged "active" (run `/smartlead-inbox-manager` first)
 - [ ] At least 1 campaign template in Smartlead (or the script creates a fresh one)
 
@@ -82,7 +82,7 @@ npx tsx scripts/phase-enrich.ts --leads-file=/tmp/auto/leads.json --out=/tmp/aut
 The script:
 1. Checks each lead for email; if missing, hits Prospeo's `enrich-person` endpoint
 2. If company_description is thin (<50 chars), scrapes company_domain homepage
-3. Runs MillionVerifier on every candidate email
+3. Runs Icypeas on every candidate email
 4. Writes enriched leads (only those with valid email) to output
 
 Expect hit rates:
@@ -249,7 +249,7 @@ Works for <1000 inboxes. If you scale beyond that, migrate to a real DB.
 Typical run (1 target, 1000 leads pulled):
 - Prospeo search: ~40 pages × search = ~$0.20
 - Prospeo enrich-person (email finding for ~500 leads missing email): ~$5
-- MillionVerifier validation: ~$0.50
+- Icypeas validation: ~$0.50
 - Smartlead send cost: ~$0.001/email sent over time
 - Claude Code Task sub-agents: (uses your Claude Code plan — no extra API spend)
 
@@ -259,7 +259,7 @@ Total: **~$6-10 per campaign** to reach 300-500 valid emails.
 
 - `scripts/phase-scrape.ts` — website scrape
 - `scripts/phase-prospeo.ts` — Prospeo paginated search
-- `scripts/phase-enrich.ts` — email waterfall + description enrichment + MillionVerifier
+- `scripts/phase-enrich.ts` — email waterfall + description enrichment + Icypeas
 - `scripts/phase-upload.ts` — Smartlead campaign creation + upload
 - `scripts/_lib.ts` — shared API helpers
 

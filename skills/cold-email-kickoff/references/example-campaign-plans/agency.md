@@ -28,7 +28,7 @@ Full strategy in: `profiles/scale-studio/campaign-strategy.md`
 ## Infrastructure Readiness
 - [x] SMARTLEAD_API_KEY
 - [x] PROSPEO_API_KEY
-- [x] MILLIONVERIFIER_API_KEY
+- [x] ICYPEAS_API_KEY
 - [x] RAPIDAPI_KEY (LinkedIn engagement data)
 - [x] Domains purchased (12 `.co` lookalikes)
 - [ ] Inboxes warmed 2+ weeks — CURRENTLY WARMING (~day 9 of warmup). Not ready to send yet.

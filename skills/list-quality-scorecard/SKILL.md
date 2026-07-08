@@ -48,7 +48,7 @@ Optional `--icp-file` lets the scorecard compare your list against your declared
 
 ### 1. Email verification coverage (critical)
 
-- **What:** % of emails validated via MillionVerifier or equivalent
+- **What:** % of emails validated via Icypeas or equivalent
 - **Rule:** 100% of a cold list must be verified before sending. Unverified emails = bounces = dead domains.
 - **Score:** 100 if all verified, 0 if <50% verified
 

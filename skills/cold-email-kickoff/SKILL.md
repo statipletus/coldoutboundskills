@@ -30,7 +30,7 @@ Before touching any business context, ask:
 
 1. **"Do you already have sending domains + inboxes set up on Smartlead?"** (yes / no / not sure)
 2. **"At least 20 inboxes that have been warming for 2+ weeks?"** (yes / no)
-3. **"Do you have API keys for Smartlead + Prospeo + MillionVerifier in your `.env`?"** (yes / partial / no)
+3. **"Do you have API keys for Smartlead + Prospeo + Icypeas in your `.env`?"** (yes / partial / no)
 
 These answers determine the next-step menu at Step 6. Save them as `infrastructure_status` in the profile.
 
@@ -90,7 +90,7 @@ Full strategy in: profiles/<slug>/campaign-strategy.md
 Based on your Step 1 answers:
 - [ ] SMARTLEAD_API_KEY in .env: <yes/no>
 - [ ] PROSPEO_API_KEY in .env: <yes/no>
-- [ ] MILLIONVERIFIER_API_KEY in .env: <yes/no>
+- [ ] ICYPEAS_API_KEY in .env: <yes/no>
 - [ ] Domains purchased: <yes/no>
 - [ ] Inboxes warmed 2+ weeks: <yes/no>
 

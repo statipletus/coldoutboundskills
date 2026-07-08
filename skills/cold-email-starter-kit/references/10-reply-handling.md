@@ -120,7 +120,7 @@ If they share a contact: add that contact as a new lead in a different campaign 
 **If bounce rate < 3%**: normal, expected, nothing to do. Bad addresses happen.
 
 **If bounce rate > 5%**: something's wrong. Options:
-- Bad list (emails weren't verified) → re-verify with MillionVerifier before next campaign
+- Bad list (emails weren't verified) → re-verify with Icypeas before next campaign
 - Inbox reputation issue → pause sending from that inbox, investigate
 - Domain reputation issue → pause the whole domain, check MXToolbox
 

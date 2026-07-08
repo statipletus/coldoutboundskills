@@ -54,7 +54,7 @@ See `references/11-legal-compliance.md` for the legal details.
 ## Lead list
 
 - [ ] **Deduplicated** (no email appears twice)
-- [ ] **Email-verified** via MillionVerifier or similar — aim for < 3% predicted bounce rate
+- [ ] **Email-verified** via Icypeas or similar — aim for < 3% predicted bounce rate
 - [ ] **Bad-title filter applied** (remove "assistant", "intern", "student" unless targeted)
 - [ ] **Excluded domains** list honored (your competitors, existing customers, past unsubscribes)
 - [ ] **All required variables populated** (first_name, company_name, etc.) — rows missing required vars should be filtered out
